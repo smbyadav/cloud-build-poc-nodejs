@@ -7,8 +7,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -18,8 +18,8 @@ jobs:
         args:
           - compute
           - scp
-          - --project=terraform-poc-354513
-          - --us-central1-a
-          - --recurse
+          - project=terraform-poc-354513
+          - us-central1-a
+          - recurse
           - source/*
           - instance-1:/opt/tap-health/gcp-authtication-code-build
