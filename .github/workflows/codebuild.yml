@@ -19,7 +19,7 @@ jobs:
           - compute
           - scp
           - project=terraform-poc-354513
-          - us-central1-a
-          - recurse
+          - --us-central1-a
+          - --recurse
           - source/*
           - instance-1:/opt/tap-health/gcp-authtication-code-build
