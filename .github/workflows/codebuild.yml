@@ -1,58 +1,25 @@
 name: Build and Deploy
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: terraform-poc-354513
-
-      # - name: Install Dependencies
-      #   run: |
-      #     pwd
-      #     ls -la
-      #     cd tap-health/
-      #     ls -al
-      #     #cd /opt/tap-health/gcp-authtication-code-build
-      #     #npm install
-
-      # - name: Build
-      #   run: |
-      #     cd /opt/tap-health/gcp-authtication-code-build
-      #     npm run build
-
-      # - name: Copy to Compute Engine
-      #   run: |
-      #     gcloud compute scp \
-      #       --project=terraform-poc-354513 \
-      #       --zone=us-central1-a \
-      #       --recurse \
-      #       source/* \
-      #       instance-1:/opt/tap-health/gcp-authtication-code-build
-
-      # # Add more steps as needed
-
-
-      - name: 'gcr.io/cloud-builders/gcloud'
+      - name: gcr.io/cloud-builders/gcloud
         args:
           - compute
           - scp
-          - '--project=terraform-poc-354513'
-          - '--us-central1-a'
-          - '--recurse'
-          - source/*  # Adjust this path to match the files/directories you want to copy
-          - 'instance-1:/opt/tap-health/gcp-authtication-code-build'  # Adjust the VM instance name and destination path
-
-# Add more build steps or configuration as needed
+          - --project=terraform-poc-354513
+          - --us-central1-a
+          - --recurse
+          - source/*
+          - instance-1:/opt/tap-health/gcp-authtication-code-build
